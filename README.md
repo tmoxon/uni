@@ -193,6 +193,12 @@ There appear to be bugs in handling plugins through the marketplace connections.
 1. Update the file ~/.claude/settings.json to remove uni
 1. Restart vs code / claude
 
+### JSON error when adding a marketplace
+
+If you see an error similar to 'Unexpected token '', "{..." is not valid JSON'
+
+1. Reinstall your Claude Code extension
+
 ## License
 
 MIT License - see LICENSE file for details
