@@ -90,7 +90,12 @@
       "Bash(git push:*)",
       "Bash(/tmp/base_version.ts)",
       "Bash(/tmp/head_version.ts)",
-      "Bash(awk:*)"
+      "Bash(awk:*)",
+      "Bash(npm init:*)",
+      "Bash(git -C /target checkout:*)",
+      "Bash(git -C /target reset:*)",
+      "Bash(timeout 10 npm run dev:*)",
+      "Bash(pkill:*)"
     ],
     "deny": [],
     "ask": []

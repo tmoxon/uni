@@ -24,21 +24,49 @@ Plus:
 
 Read the introduction: [Superpowers for Claude Code](https://blog.fsck.com/2025/10/09/superpowers/)
 
+## Prerequisites
+
+- **Python 3.11+** - Required for cross-platform compatibility
+- **Git** - For skills repository management
+- **Claude Code (VS Code Extension)** - Latest version
+
 ## Installation
 
 ### Install the plugin
 
-Run the following (note at time of writing the slash command doesn't work in the vs code extension):
-```bash
-claude /plugin
-```
-- Select "add marketplace"
-- Enter https://github.com/tmoxon/uni
-- Agree to set it up
-- Follow instructions to install uni
-- Restart extensions
+**Option 1: Via GitHub (Recommended)**
 
-The plugin automatically handles skills repository setup on first run.
+Clone the repository directly to your Claude plugins directory:
+
+**Windows:**
+```powershell
+# Create plugins directory if it doesn't exist
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\plugins"
+
+# Clone the repository
+cd "$env:USERPROFILE\.claude\plugins"
+git clone https://github.com/tmoxon/uni.git
+```
+
+**Mac/Linux:**
+```bash
+# Create plugins directory if it doesn't exist
+mkdir -p ~/.claude/plugins
+
+# Clone the repository
+cd ~/.claude/plugins
+git clone https://github.com/tmoxon/uni.git
+```
+
+**Option 2: Via Marketplace (if you have a marketplace set up)**
+
+If you have a uni marketplace configured:
+```bash
+/plugin marketplace add tmoxon/uni-marketplace
+/plugin install uni@uni-marketplace
+```
+
+After installation, restart Claude Code / VS Code.
 
 ### Verify Installation
 
@@ -63,6 +91,39 @@ ${UNI_SKILLS}/skills/using-skills/find-skills              # All skills with des
 ${UNI_SKILLS}/skills/using-skills/find-skills test         # Filter by pattern
 ${UNI_SKILLS}/skills/using-skills/find-skills 'TDD|debug'  # Regex pattern
 ```
+
+### Environment Variables
+
+Uni creates environment variables for easy skill access. These use forward slashes for cross-platform compatibility.
+
+**Base Paths:**
+```bash
+${UNI_ROOT}    # Root directory (~/.config/uni)
+${UNI_SKILLS}  # Skills directory (~/.config/uni/core/skills)
+```
+
+**Skill File Paths (32 skills):**
+```bash
+${UNI_SKILL_BRAINSTORMING}           # → .../brainstorming/SKILL.md
+${UNI_SKILL_TEST_DRIVEN_DEVELOPMENT} # → .../test-driven-development/SKILL.md
+${UNI_SKILL_SYSTEMATIC_DEBUGGING}    # → .../systematic-debugging/SKILL.md
+# ... and 29 more
+```
+
+**Using Paths in Commands:**
+
+**Recommended:** Use direct skill environment variables for maximum compatibility:
+```bash
+${UNI_SKILL_BRAINSTORMING}           # Direct path to SKILL.md
+${UNI_SKILL_TEST_DRIVEN_DEVELOPMENT} # Works reliably on all platforms
+```
+
+**Alternative:** Path construction (may have issues on Windows):
+```bash
+${UNI_SKILLS}/skills/collaboration/brainstorming/SKILL.md
+```
+
+All 34 environment variables are listed at session start.
 
 ### Using Slash Commands
 
@@ -173,16 +234,33 @@ ${UNI_SKILLS}/skills/using-skills/skill-run <path> [args]  # Run any skill scrip
 
 ## Installation Troubleshooting
 
-### Permission Errors
+### Python Not Found
 
-If the plugin reports a permissions error executing the shell script, you can explicitly set permissions on the .sh files:
+If you get "python command not found", ensure Python 3.11+ is installed and in your PATH:
 
-```bash
-chmod +x ~/.claude/plugins/cache/uni/hooks/session-start.sh
-chmod +x ~/.claude/plugins/cache/uni/lib/initialize-skills.sh
+**Windows:**
+```powershell
+python --version  # Should show 3.11 or higher
 ```
 
-Then reload VS Code. If that still doesn't work, try running session-start.sh directly to debug.
+**Mac/Linux:**
+```bash
+python3 --version  # Should show 3.11 or higher
+```
+
+### Testing the Hook Manually
+
+You can test the session-start hook directly:
+
+```bash
+# Windows
+python hooks/session-start.py
+
+# Mac/Linux
+python3 hooks/session-start.py
+```
+
+This should output JSON with skill information.
 
 ### Uninstalling / Reinstalling
 

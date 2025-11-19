@@ -4,18 +4,24 @@ Slash commands for Claude that reference skills.
 
 ## Available Commands
 
-- `/brainstorm` - Interactive idea refinement using Socratic method (→ `@skills/collaboration/brainstorming/SKILL.md`)
-- `/create-adr` - Create an Architectural Decision Record (→ `@skills/collaboration/create-adr/SKILL.md`)
-- `/write-plan` - Create detailed implementation plan (→ `@skills/collaboration/writing-plans/SKILL.md`)
-- `/execute-plan` - Execute plan in batches with review (→ `@skills/collaboration/executing-plans/SKILL.md`)
+- `/brainstorm` - Interactive idea refinement using Socratic method (→ `${UNI_SKILL_BRAINSTORMING}`)
+- `/create-adr` - Create an Architectural Decision Record (→ `${UNI_SKILL_CREATE_ADR}`)
+- `/write-plan` - Create detailed implementation plan (→ `${UNI_SKILL_WRITING_PLANS}`)
+- `/execute-plan` - Execute plan in batches with review (→ `${UNI_SKILL_EXECUTING_PLANS}`)
 
 ## Format
 
-Each command is a simple markdown file containing a single `@` reference to a skill:
+Each command is a simple markdown file that references a skill using environment variables:
 
 ```markdown
-@skills/collaboration/brainstorming/SKILL.md
+---
+description: Interactive design refinement using Socratic method
+---
+
+Read and follow: ${UNI_SKILL_BRAINSTORMING}
 ```
+
+The environment variables (like `${UNI_SKILL_BRAINSTORMING}`) provide direct paths to skill files and work reliably across all platforms, including Windows.
 
 When you run the command (e.g., `/brainstorm`), Claude loads and follows that skill.
 
@@ -24,10 +30,15 @@ When you run the command (e.g., `/brainstorm`), Claude loads and follows that sk
 To add your own commands:
 
 1. Create `your-command.md` in this directory
-2. Add a single line referencing a skill:
+2. Add a reference to a skill using its environment variable:
    ```markdown
-   @skills/your-category/your-skill/SKILL.md
+   ---
+   description: Your command description
+   ---
+   
+   Read and follow: ${UNI_SKILL_YOUR_SKILL_NAME}
    ```
+3. The environment variable name follows the convention: `UNI_SKILL_` + uppercase skill directory name with hyphens replaced by underscores
 3. The command `/your-command` is now available
 
 ## Installation
