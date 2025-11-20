@@ -1,7 +1,7 @@
 {
   "name": "uni",
   "description": "Control the vibes with this skills manager for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "author": {
     "name": "Tim Moxon",
     "email": "tmoxon@gmail.com"

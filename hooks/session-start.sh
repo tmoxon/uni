@@ -127,17 +127,25 @@ fi
 # Build status messages that go at the end
 status_message=""
 if [ -n "$skills_behind" ]; then
-    status_message="\n\n⚠️ New skills available from upstream. Ask me to use the pulling-updates-from-skills-repository skill."
+    status_message="\n\n New skills available from upstream. Ask me to use the pulling-updates-from-skills-repository skill."
 fi
 
-# Output context injection as JSON
-cat <<EOF
-{
+# 1. Detect Windows and set the warning message
+win_warning=""
+case "$(uname -s)" in
+    CYGWIN*|MINGW*|MSYS*)
+        # We use \n so it creates a new line inside the JSON string
+        win_warning="\n\nYou are running on windows and so you MUST adapt these to Windows paths when finding skills."
+        ;;
+esac
+
+# 2. Inject the variable ($win_warning) into the printf block
+# I added a new %s at the very end of the content string to hold the warning.
+printf '{
   "hookSpecificOutput": {
     "hookEventName": "SessionStart",
-    "additionalContext": "<EXTREMELY_IMPORTANT>\nYou have access to the uni.\n\n${init_message}**The content below is from skills/using-skills/SKILL.md - your introduction to using skills:**\n\n${using_skills_escaped}\n\n**uni Configuration:**\n- Root directory: ${UNI_ROOT}\n- Skills directory: ${UNI_SKILLS}\n- Active repositories:${repos_list_escaped}\n\n**Available skills across all repositories:**\n${skills_escaped}${status_message}\n</EXTREMELY_IMPORTANT>"
+    "additionalContext": "<EXTREMELY_IMPORTANT>\\nYou have access to the uni.\\n\\n%s**The content below is from skills/using-skills/SKILL.md - your introduction to using skills:**\\n\\n%s\\n\\n**uni Configuration:**\\n- Root directory: %s\\n- Skills directory: %s\\n- Active repositories:%s\\n\\n**Available skills across all repositories:**\\n%s%s%s\\n</EXTREMELY_IMPORTANT>"
   }
-}
-EOF
+}\n' "$init_message" "$using_skills_escaped" "$UNI_ROOT" "$UNI_SKILLS" "$repos_list_escaped" "$skills_escaped" "$status_message" "$win_warning"
 
 exit 0

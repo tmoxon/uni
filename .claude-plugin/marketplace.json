@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Helping curate and manage skills to extend Claude Code's capabilities",
-    "version": "0.1.8"
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -16,7 +16,7 @@
         "url": "https://github.com/tmoxon/uni.git"
       },
       "description": "Skills loader for Claude Code",
-      "version": "0.1.8",
+      "version": "0.2.0",
       "category": "productivity",
       "keywords": ["skills", "tdd", "debugging", "collaboration", "best-practices", "workflows"],
       "strict": true

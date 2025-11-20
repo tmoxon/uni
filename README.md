@@ -40,6 +40,12 @@ claude /plugin
 
 The plugin automatically handles skills repository setup on first run.
 
+### Setting up permissions
+
+To avoid having to allow claude to read skills files every time, you can use the /add-dir command in claude to add the install directory.
+
+This is likely C:\Users\Your-User\.claude\plugins\uni
+
 ### Verify Installation
 
 ```bash
