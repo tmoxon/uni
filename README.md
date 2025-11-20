@@ -26,6 +26,13 @@ Read the introduction: [Superpowers for Claude Code](https://blog.fsck.com/2025/
 
 ## Installation
 
+### Important setup Windows users
+In general, using WSL or Docker is a good move for Windows users. However this can work in Windows if:
+
+- Git for Windows is installed
+- Your environment variable PATH includes the directory containing Git bash (e.g. C:\Program Files\Git\bin)
+- Your PATH variable is higher than C:\Windows\System32 so that bash doesn't default to loading WSL terminal
+
 ### Install the plugin
 
 Run the following (note at time of writing the slash command doesn't work in the vs code extension):
