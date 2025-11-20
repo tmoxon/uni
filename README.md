@@ -26,7 +26,7 @@ Read the introduction: [Superpowers for Claude Code](https://blog.fsck.com/2025/
 
 ## Installation
 
-### Important setup Windows users
+### Important setup for Windows users
 In general, using WSL or Docker is a good move for Windows users. However this can work in Windows if:
 
 - Git for Windows is installed
